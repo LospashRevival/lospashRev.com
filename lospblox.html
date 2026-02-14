@@ -5,184 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LospBlox - Rewrite History</title>
     <style>
-        /* --- CSS STYLING --- */
+        /* --- CSS STYLING (Unverändert modern) --- */
         :root {
-            --primary: #ff4757; /* Ein kräftiges Rot für Akzente */
+            --primary: #ff4757;
             --bg-dark: #1e272e;
             --bg-card: #2f3640;
             --text-main: #f1f2f6;
             --text-muted: #a4b0be;
+            --success: #2ed573;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
 
         /* Navigation */
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            background-color: rgba(30, 39, 46, 0.95);
-            border-bottom: 1px solid #353b48;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%;
+            background-color: rgba(30, 39, 46, 0.95); border-bottom: 1px solid #353b48;
+            position: sticky; top: 0; z-index: 100;
         }
+        .logo { font-size: 1.8rem; font-weight: bold; color: var(--primary); }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { color: var(--text-main); text-decoration: none; margin-left: 20px; transition: 0.3s; cursor: pointer; }
+        .nav-links a:hover { color: var(--primary); }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary);
-            letter-spacing: 1px;
-        }
+        /* Auth Buttons */
+        .auth-buttons { display: flex; }
+        .user-info { display: none; align-items: center; gap: 10px; }
+        .btn-login { border: 2px solid var(--primary); padding: 8px 20px; border-radius: 5px; }
+        .btn-register { background-color: var(--primary); border: 2px solid var(--primary); padding: 8px 20px; border-radius: 5px; margin-left: 10px; }
+        .btn-logout { border: 1px solid #57606f; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; }
 
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            margin-left: 20px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .btn-login {
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            padding: 8px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .btn-register {
-            background-color: var(--primary);
-            border: 2px solid var(--primary);
-            padding: 8px 20px;
-            border-radius: 5px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
+        /* Hero */
         .hero {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #2f3640 0%, #1e272e 70%);
-            padding: 0 20px;
+            height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            background: radial-gradient(circle at center, #2f3640 0%, #1e272e 70%); padding: 0 20px;
         }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 2rem;
-        }
-
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .hero p { color: var(--text-muted); max-width: 600px; margin-bottom: 2rem; }
         .cta-button {
-            background-color: var(--primary);
-            color: white;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            background-color: var(--primary); color: white; padding: 15px 40px; font-size: 1.2rem;
+            text-decoration: none; border-radius: 8px; transition: transform 0.2s; border: none; cursor: pointer;
         }
+        .cta-button:hover { transform: scale(1.05); }
 
-        .cta-button:hover {
-            transform: scale(1.05);
-        }
-
-        /* Features / Stats */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            padding: 4rem 10%;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .card h3 {
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: #151b20;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 2rem;
-        }
-
-        /* Modal (Login Pop-up Mockup) */
+        /* Modal */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000;
         }
-        
-        .modal-content {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-        }
-
-        .input-group {
-            margin-bottom: 1rem;
-        }
-
+        .modal-content { background: var(--bg-card); padding: 2rem; border-radius: 10px; width: 350px; text-align: center; }
+        .input-group { margin-bottom: 1rem; text-align: left; }
+        .input-group label { font-size: 0.8rem; color: var(--text-muted); }
         .input-group input {
-            width: 100%;
-            padding: 10px;
-            background: var(--bg-dark);
-            border: 1px solid #57606f;
-            color: white;
-            border-radius: 5px;
+            width: 100%; padding: 10px; background: var(--bg-dark); border: 1px solid #57606f;
+            color: white; border-radius: 5px; margin-top: 5px;
         }
-
-        .close-btn {
-            float: right;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
+        .close-btn { float: right; cursor: pointer; font-size: 1.5rem; }
+        .switch-mode { margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); cursor: pointer; text-decoration: underline; }
+        .error-msg { color: #ff4757; font-size: 0.8rem; margin-bottom: 10px; display: none; }
 
     </style>
 </head>
@@ -194,70 +75,199 @@
             <a href="#">Games</a>
             <a href="#">Katalog</a>
             <a href="#">Forum</a>
-            <a href="#" onclick="openModal()" class="btn-login">Login</a>
-            <a href="#" class="btn-register">Registrieren</a>
+            
+            <div class="auth-buttons" id="auth-logged-out">
+                <a onclick="openModal('login')" class="btn-login">Login</a>
+                <a onclick="openModal('register')" class="btn-register">Registrieren</a>
+            </div>
+
+            <div class="user-info" id="auth-logged-in">
+                <span id="username-display">Spieler</span>
+                <span style="color: #2ed573; font-size: 0.9rem;">● Online</span>
+                <button onclick="logoutUser()" class="btn-logout">Logout</button>
+            </div>
         </div>
     </nav>
 
     <section class="hero">
-        <h1>Willkommen bei LospBlox</h1>
-        <p>Erlebe die goldene Ära neu. Eine Community-getriebene Plattform für Kreativität, Nostalgie und Spaß. Tritt heute bei und baue deine eigene Welt.</p>
-        <a href="#" class="cta-button" onclick="alert('Client Download ist noch nicht verfügbar!')">Jetzt Spielen</a>
+        <h1 id="hero-title">Willkommen bei LospBlox</h1>
+        <p>Erlebe die goldene Ära neu. Tritt heute bei und baue deine eigene Welt.</p>
+        <button class="cta-button" onclick="downloadClient()">Client Herunterladen</button>
     </section>
 
-    <section class="features">
-        <div class="card">
-            <h3>2016 Client</h3>
-            <p>Wir nutzen eine stabile und sichere Version des klassischen Clients für maximale Nostalgie.</p>
-        </div>
-        <div class="card">
-            <h3>Custom Economy</h3>
-            <p>Verdiene LospBux durch Spielen und Handeln. Ein komplett neues Wirtschaftssystem.</p>
-        </div>
-        <div class="card">
-            <h3>Sicherheit</h3>
-            <p>Deine Daten sind bei uns sicher. Wir nutzen modernes Hashing und Security-Standards.</p>
-        </div>
-    </section>
-
-    <div class="modal" id="loginModal">
+    <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2>Anmelden</h2>
+            <h2 id="modal-title">Anmelden</h2>
             <br>
+            <p class="error-msg" id="error-message"></p>
+            
             <div class="input-group">
-                <input type="text" placeholder="Benutzername">
+                <label>E-Mail Adresse</label>
+                <input type="email" id="email" placeholder="name@beispiel.de">
             </div>
+            
             <div class="input-group">
-                <input type="password" placeholder="Passwort">
+                <label>Passwort</label>
+                <input type="password" id="password" placeholder="******">
             </div>
-            <button class="cta-button" style="width: 100%; font-size: 1rem;">Einloggen</button>
+
+            <button class="cta-button" style="width: 100%; font-size: 1rem;" id="auth-action-btn" onclick="handleAuth()">Einloggen</button>
+            
+            <p class="switch-mode" id="switch-text" onclick="toggleAuthMode()">Noch keinen Account? Registrieren</p>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 LospBlox. Nicht verbunden mit Roblox Corporation.</p>
-        <p>Dies ist ein Fan-Projekt.</p>
-    </footer>
+    <script type="module">
+        // Importiere Firebase Module
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    <script>
-        const modal = document.getElementById('loginModal');
+        // --- KONFIGURATION START ---
+        // 1. Gehe in deine Firebase Console
+        // 2. Kopiere den "firebaseConfig"-Block
+        // 3. Ersetze den Block hier unten:
 
-        function openModal() {
+        const firebaseConfig = {
+            // FÜGE HIER DEINEN FIREBASE CONFIG CODE EIN!
+            // Beispiel:
+            // apiKey: "AIzaSyD...",
+            // authDomain: "lospblox.firebaseapp.com",
+            // projectId: "lospblox",
+            // ...
+        };
+
+        // --- KONFIGURATION ENDE ---
+
+        // Firebase starten
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Globale Variablen für UI
+        window.isLoginMode = true;
+
+        // Modal Steuerung
+        window.openModal = function(mode) {
+            const modal = document.getElementById('authModal');
             modal.style.display = 'flex';
+            if(mode === 'register') {
+                window.isLoginMode = false;
+            } else {
+                window.isLoginMode = true;
+            }
+            updateModalUI();
         }
 
-        function closeModal() {
-            modal.style.display = 'none';
+        window.closeModal = function() {
+            document.getElementById('authModal').style.display = 'none';
+            document.getElementById('error-message').style.display = 'none';
         }
 
-        // Schließen wenn man neben das Modal klickt
+        window.toggleAuthMode = function() {
+            window.isLoginMode = !window.isLoginMode;
+            updateModalUI();
+        }
+
+        function updateModalUI() {
+            const title = document.getElementById('modal-title');
+            const btn = document.getElementById('auth-action-btn');
+            const switchText = document.getElementById('switch-text');
+
+            if (window.isLoginMode) {
+                title.innerText = "Anmelden";
+                btn.innerText = "Einloggen";
+                switchText.innerText = "Noch keinen Account? Registrieren";
+            } else {
+                title.innerText = "Registrieren";
+                btn.innerText = "Account erstellen";
+                switchText.innerText = "Bereits einen Account? Einloggen";
+            }
+        }
+
+        // Auth Logic (Login / Register)
+        window.handleAuth = function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-message');
+
+            if(!email || !password) {
+                errorMsg.innerText = "Bitte fülle alle Felder aus.";
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            if (window.isLoginMode) {
+                // LOGIN
+                signInWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        window.closeModal();
+                        console.log("Eingeloggt:", userCredential.user);
+                    })
+                    .catch((error) => {
+                        errorMsg.innerText = "Fehler: " + error.message;
+                        errorMsg.style.display = 'block';
+                    });
+            } else {
+                // REGISTER
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        window.closeModal();
+                        alert("Account erfolgreich erstellt! Du bist jetzt eingeloggt.");
+                    })
+                    .catch((error) => {
+                        errorMsg.innerText = "Fehler: " + error.message;
+                        errorMsg.style.display = 'block';
+                    });
+            }
+        }
+
+        // Logout
+        window.logoutUser = function() {
+            signOut(auth).then(() => {
+                alert("Erfolgreich ausgeloggt.");
+            });
+        }
+
+        // Benutzerstatus überwachen (Checkt ob eingeloggt oder nicht)
+        onAuthStateChanged(auth, (user) => {
+            const loggedOutDiv = document.getElementById('auth-logged-out');
+            const loggedInDiv = document.getElementById('auth-logged-in');
+            const userDisplay = document.getElementById('username-display');
+            const heroTitle = document.getElementById('hero-title');
+
+            if (user) {
+                // User ist eingeloggt
+                loggedOutDiv.style.display = 'none';
+                loggedInDiv.style.display = 'flex';
+                // Da wir nur Email haben, nehmen wir den Teil vor dem @ als Namen
+                const name = user.email.split('@')[0];
+                userDisplay.innerText = name;
+                heroTitle.innerText = "Willkommen zurück, " + name + "!";
+            } else {
+                // User ist ausgeloggt
+                loggedOutDiv.style.display = 'flex';
+                loggedInDiv.style.display = 'none';
+                heroTitle.innerText = "Willkommen bei LospBlox";
+            }
+        });
+
+        window.downloadClient = function() {
+            const user = auth.currentUser;
+            if(user) {
+                alert("Download startet... (Fake - Hier würde die .exe kommen)");
+            } else {
+                alert("Du musst eingeloggt sein, um den Client herunterzuladen!");
+                window.openModal('login');
+            }
+        }
+
+        // Modal schließen bei Klick daneben
         window.onclick = function(event) {
+            const modal = document.getElementById('authModal');
             if (event.target == modal) {
-                closeModal();
+                window.closeModal();
             }
         }
     </script>
-
 </body>
 </html>

@@ -3,297 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LospBlox - Home</title>
+    <title>LospBlox - Revival</title>
     <style>
-        /* --- CLASSIC ROBLOX STYLE (2016 ERA) --- */
+        /* --- GITHUB STYLE DESIGN (Wie auf deinem Screenshot) --- */
         body {
-            background-color: #e3e3e3;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #24292f; /* Dunkles Grau für Text */
+            background-color: #ffffff; /* Weißer Hintergrund */
         }
 
-        /* Blauer Header */
-        header {
-            background-color: #0074bd; /* Das klassische Roblox Blau */
-            height: 40px;
-            display: flex;
-            align-items: center;
-            padding: 0 10%;
-            border-bottom: 2px solid #004b7a;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        /* Der blaue Titel wie im Bild */
+        h1 {
+            color: #0969da; /* GitHub Blau */
+            font-size: 2em;
+            margin-bottom: 0;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid #d0d7de; /* Die graue Linie */
         }
 
-        .logo {
-            color: white;
-            font-size: 24px;
-            font-weight: 800;
+        h2 {
+            font-size: 1.5em;
+            margin-top: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        /* Links Design */
+        a {
+            color: #0969da;
             text-decoration: none;
-            margin-right: 30px;
-            font-family: 'Arial Black', sans-serif;
-            border: 1px solid white;
-            padding: 0 5px;
+            cursor: pointer;
         }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            margin-right: 20px;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
+        a:hover {
             text-decoration: underline;
         }
 
-        /* Container für den Inhalt */
-        .container {
-            width: 900px;
-            margin: 20px auto;
-            display: flex;
-            gap: 20px;
+        /* --- LOGIN BEREICH (Passt sich dem Design an) --- */
+        .auth-section {
+            background-color: #f6f8fa; /* Leichtes Grau für Boxen */
+            border: 1px solid #d0d7de;
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 20px;
         }
 
-        /* Linke Seite (Sidebar / Login) */
-        .sidebar {
-            width: 250px;
+        .input-simple {
+            padding: 5px 12px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #24292f;
+            vertical-align: middle;
+            background-color: #ffffff;
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+            margin-right: 10px;
         }
 
-        .login-box {
-            background: white;
-            padding: 15px;
-            border: 1px solid #b8b8b8;
-            border-radius: 3px;
-            text-align: center;
-        }
-
-        .login-box h3 {
-            margin-top: 0;
-            color: #333;
-            font-size: 16px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        .btn-green {
-            background: linear-gradient(to bottom, #00b800, #009900);
-            border: 1px solid #006600;
-            color: white;
-            padding: 8px 0;
-            width: 100%;
-            font-weight: bold;
+        .btn-simple {
+            color: #ffffff;
+            background-color: #2da44e; /* GitHub Grün */
+            border-color: rgba(27,31,35,0.15);
+            padding: 5px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            white-space: nowrap;
+            vertical-align: middle;
             cursor: pointer;
-            border-radius: 3px;
-            margin-bottom: 5px;
+            border: 1px solid;
+            border-radius: 6px;
+            appearance: none;
         }
 
-        .btn-blue {
-            background: linear-gradient(to bottom, #00a2ff, #0074bd);
-            border: 1px solid #004b7a;
-            color: white;
-            padding: 8px 0;
-            width: 100%;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 3px;
+        .btn-simple:hover {
+            background-color: #2c974b;
         }
 
-        .user-panel {
-            display: none; /* Versteckt wenn nicht eingeloggt */
-            background: white;
-            padding: 15px;
-            border: 1px solid #b8b8b8;
-            text-align: center;
-        }
-
-        .avatar-circle {
+        /* Avatar Bild (Dein Fuchs) */
+        .user-avatar {
             width: 100px;
             height: 100px;
-            background-color: #eee;
             border-radius: 50%;
-            margin: 0 auto 10px;
-            line-height: 100px;
-            color: #aaa;
-            font-size: 40px;
-        }
-
-        /* Rechte Seite (Games) */
-        .main-content {
-            flex: 1;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: bold;
+            object-fit: cover;
+            border: 3px solid #0969da;
+            display: block;
             margin-bottom: 10px;
         }
 
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .game-card {
-            background: white;
-            border: 1px solid #b8b8b8;
-            border-radius: 3px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .game-thumb {
-            width: 100%;
-            height: 120px;
-            background-color: #888;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .game-info {
-            padding: 8px;
-        }
-
-        .game-title {
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        .game-stats {
-            font-size: 11px;
-            color: #666;
-        }
-
-        /* Banner oben */
-        .alert-banner {
-            background-color: #f6b93b;
-            color: #333;
-            text-align: center;
-            padding: 10px;
-            font-weight: bold;
-            border-bottom: 1px solid #e58e26;
+        #logged-in-view {
+            display: none;
         }
 
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">LospBlox</a>
-        <div class="nav-links">
-            <a href="#">Games</a>
-            <a href="#">Catalog</a>
-            <a href="#">Develop</a>
-            <a href="#">Forum</a>
-        </div>
-    </header>
+    <h1>lospashRev.com</h1>
 
-    <div class="alert-banner">
-        Willkommen bei LospBlox! Dies ist eine 2016-Revival Simulation.
-    </div>
+    <h2>an roblox revival where you can imagine your fantasy!</h2>
 
-    <div class="container">
+    <p>
+        you can play the 2016 to 2022 build less more rules than other revival and more! 
+        you can play our revival via <a href="#">lospashRev.com</a> or just join our server via:
+    </p>
+
+    <div class="auth-section">
         
-        <div class="sidebar">
-            
-            <div id="login-section" class="login-box">
-                <h3>Member Login</h3>
-                <input type="text" id="username" class="input-field" placeholder="Username">
-                <input type="password" id="password" class="input-field" placeholder="Password">
-                <button class="btn-green" onclick="handleLogin()">Login</button>
-                <div style="margin: 10px 0; font-size: 12px;">or</div>
-                <button class="btn-blue" onclick="handleRegister()">Sign Up</button>
-                <p id="error-msg" style="color: red; font-size: 12px; margin-top: 5px;"></p>
-            </div>
-
-            <div id="user-section" class="user-panel">
-                <div class="avatar-circle">?</div>
-                <h3 id="display-name" style="margin-bottom: 5px;">Gast</h3>
-                <p style="color: green; font-size: 12px;">● Online</p>
-                <br>
-                <button class="btn-blue" onclick="downloadClient()">Download Client</button>
-                <br><br>
-                <button onclick="logout()" style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline;">Logout</button>
-            </div>
-
+        <div id="logged-out-view">
+            <strong>Login / Register:</strong><br><br>
+            <input type="text" id="username" class="input-simple" placeholder="Username">
+            <input type="password" id="password" class="input-simple" placeholder="Password">
+            <button class="btn-simple" onclick="handleLogin()">Sign in</button>
+            <span style="font-size: 12px; margin-left: 10px;">or <a onclick="handleRegister()">create an account</a></span>
+            <p id="error-msg" style="color: #cf222e; font-size: 12px; margin-top: 10px;"></p>
         </div>
 
-        <div class="main-content">
-            <div class="section-title">Popular Games</div>
+        <div id="logged-in-view">
+            <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-893047294F250C332204B1963073D352-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Avatar" class="user-avatar" id="avatar-img">
             
-            <div class="games-grid">
-                <div class="game-card" onclick="playGame('Crossroads')">
-                    <div class="game-thumb" style="background-color: #ff6b6b;">⚔️</div>
-                    <div class="game-info">
-                        <span class="game-title">Crossroads</span>
-                        <div class="game-stats">128 Playing</div>
-                    </div>
-                </div>
-
-                <div class="game-card" onclick="playGame('Sword Fight')">
-                    <div class="game-thumb" style="background-color: #48dbfb;">🏔️</div>
-                    <div class="game-info">
-                        <span class="game-title">Sword Heights</span>
-                        <div class="game-stats">45 Playing</div>
-                    </div>
-                </div>
-
-                <div class="game-card" onclick="playGame('Tycoon')">
-                    <div class="game-thumb" style="background-color: #1dd1a1;">💰</div>
-                    <div class="game-info">
-                        <span class="game-title">Pizza Tycoon</span>
-                        <div class="game-stats">890 Playing</div>
-                    </div>
-                </div>
-                
-                <div class="game-card" onclick="playGame('Natural Disaster')">
-                    <div class="game-thumb" style="background-color: #ff9f43;">🌪️</div>
-                    <div class="game-info">
-                        <span class="game-title">Disaster Survival</span>
-                        <div class="game-stats">230 Playing</div>
-                    </div>
-                </div>
-
-                <div class="game-card" onclick="playGame('Work at Pizza')">
-                    <div class="game-thumb" style="background-color: #5f27cd;">🍕</div>
-                    <div class="game-info">
-                        <span class="game-title">Work at a Place</span>
-                        <div class="game-stats">1.2k Playing</div>
-                    </div>
-                </div>
-
-                 <div class="game-card" onclick="playGame('Baseplate')">
-                    <div class="game-thumb" style="background-color: #576574;">🏗️</div>
-                    <div class="game-info">
-                        <span class="game-title">Classic Baseplate</span>
-                        <div class="game-stats">12 Playing</div>
-                    </div>
-                </div>
-            </div>
+            <p>Welcome back, <strong id="display-name">User</strong>!</p>
+            <p>Status: <span style="color: #2da44e;">● Online</span></p>
+            
+            <button class="btn-simple" onclick="downloadClient()">Download Client (2016-2022)</button>
+            <button class="btn-simple" style="background-color: #f6f8fa; color: #cf222e; border-color: #d0d7de;" onclick="logout()">Sign out</button>
         </div>
+
     </div>
 
     <script>
-        // Beim Starten checken, ob wer eingeloggt ist
+        // Dein Fuchs-Bild URL (Ich habe es hochgeladen simuliert, nutze hier einen Platzhalter oder dein Bild wenn du eine URL hast)
+        // Wenn du dein Bild nutzen willst, musst du es im Repo hochladen und hier den Namen eintragen (z.B. "image_4a26e9.png")
+        const FOX_AVATAR_URL = "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-893047294F250C332204B1963073D352-Png/150/150/AvatarHeadshot/Png/noFilter"; 
+
         window.onload = function() {
-            const currentUser = localStorage.getItem("lospblox_user");
-            if (currentUser) {
-                showUserPanel(currentUser);
+            const user = localStorage.getItem("lospblox_user");
+            if (user) {
+                showLoggedIn(user);
             }
         };
 
@@ -302,14 +161,12 @@
             const pass = document.getElementById('password').value;
             const error = document.getElementById('error-msg');
 
-            // Einfacher Check (Simuliert)
             const savedPass = localStorage.getItem("pass_" + user);
 
             if (savedPass && savedPass === pass) {
-                localStorage.setItem("lospblox_user", user);
-                showUserPanel(user);
+                loginUser(user);
             } else {
-                error.innerText = "Falsches Passwort oder User existiert nicht!";
+                error.innerText = "Incorrect username or password.";
             }
         }
 
@@ -319,24 +176,30 @@
             const error = document.getElementById('error-msg');
 
             if (!user || !pass) {
-                error.innerText = "Bitte alles ausfüllen!";
+                error.innerText = "Please fill in all fields.";
                 return;
             }
 
             if (localStorage.getItem("pass_" + user)) {
-                error.innerText = "Name schon vergeben!";
+                error.innerText = "Username already taken.";
             } else {
                 localStorage.setItem("pass_" + user, pass);
-                localStorage.setItem("lospblox_user", user);
-                alert("Account erstellt!");
-                showUserPanel(user);
+                loginUser(user);
             }
         }
 
-        function showUserPanel(username) {
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('user-section').style.display = 'block';
-            document.getElementById('display-name').innerText = username;
+        function loginUser(user) {
+            localStorage.setItem("lospblox_user", user);
+            showLoggedIn(user);
+        }
+
+        function showLoggedIn(user) {
+            document.getElementById('logged-out-view').style.display = 'none';
+            document.getElementById('logged-in-view').style.display = 'block';
+            document.getElementById('display-name').innerText = user;
+            
+            // Wenn der User "Fox" heißt (oder einfach immer), zeigen wir dein Bild:
+            // document.getElementById('avatar-img').src = "image_4a26e9.png"; // <-- Wenn du das Bild im Repo hast
         }
 
         function logout() {
@@ -345,17 +208,7 @@
         }
 
         function downloadClient() {
-            alert("Der LospBlox 2016 Client wird heruntergeladen... (Fake)");
-        }
-
-        function playGame(gameName) {
-            const user = localStorage.getItem("lospblox_user");
-            if (user) {
-                alert("Starte " + gameName + " für Spieler " + user + "...");
-                // Hier würde später der URI-Launcher hinkommen
-            } else {
-                alert("Du musst dich erst einloggen!");
-            }
+            alert("Starting download for LospBlox Client...");
         }
     </script>
 </body>

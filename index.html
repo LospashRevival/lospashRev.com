@@ -3,248 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LospBlox - Rewrite History</title>
+    <title>LospBlox - Home</title>
     <style>
-        /* --- CSS STYLING --- */
-        :root {
-            --primary: #ff4757;
-            --bg-dark: #1e272e;
-            --bg-card: #2f3640;
-            --text-main: #f1f2f6;
-            --text-muted: #a4b0be;
-            --success: #2ed573;
+        /* --- CLASSIC ROBLOX STYLE (2016 ERA) --- */
+        body {
+            background-color: #e3e3e3;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
+        /* Blauer Header */
+        header {
+            background-color: #0074bd; /* Das klassische Roblox Blau */
+            height: 40px;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            border-bottom: 2px solid #004b7a;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
 
-        /* Navigation */
-        nav {
-            display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%;
-            background-color: rgba(30, 39, 46, 0.95); border-bottom: 1px solid #353b48;
-            position: sticky; top: 0; z-index: 100;
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: 800;
+            text-decoration: none;
+            margin-right: 30px;
+            font-family: 'Arial Black', sans-serif;
+            border: 1px solid white;
+            padding: 0 5px;
         }
-        .logo { font-size: 1.8rem; font-weight: bold; color: var(--primary); }
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { color: var(--text-main); text-decoration: none; margin-left: 20px; transition: 0.3s; cursor: pointer; }
-        .nav-links a:hover { color: var(--primary); }
 
-        /* Auth Buttons */
-        .auth-buttons { display: flex; }
-        .user-info { display: none; align-items: center; gap: 10px; }
-        .btn-login { border: 2px solid var(--primary); padding: 8px 20px; border-radius: 5px; }
-        .btn-register { background-color: var(--primary); border: 2px solid var(--primary); padding: 8px 20px; border-radius: 5px; margin-left: 10px; }
-        .btn-logout { border: 1px solid #57606f; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; cursor: pointer; background: none; color: white;}
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            margin-right: 20px;
+            font-weight: 500;
+        }
 
-        /* Hero */
-        .hero {
-            height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-            background: radial-gradient(circle at center, #2f3640 0%, #1e272e 70%); padding: 0 20px;
+        .nav-links a:hover {
+            text-decoration: underline;
         }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-        .hero p { color: var(--text-muted); max-width: 600px; margin-bottom: 2rem; }
-        .cta-button {
-            background-color: var(--primary); color: white; padding: 15px 40px; font-size: 1.2rem;
-            text-decoration: none; border-radius: 8px; transition: transform 0.2s; border: none; cursor: pointer;
-        }
-        .cta-button:hover { transform: scale(1.05); }
 
-        /* Modal */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000;
+        /* Container für den Inhalt */
+        .container {
+            width: 900px;
+            margin: 20px auto;
+            display: flex;
+            gap: 20px;
         }
-        .modal-content { background: var(--bg-card); padding: 2rem; border-radius: 10px; width: 350px; text-align: center; }
-        .input-group { margin-bottom: 1rem; text-align: left; }
-        .input-group label { font-size: 0.8rem; color: var(--text-muted); }
-        .input-group input {
-            width: 100%; padding: 10px; background: var(--bg-dark); border: 1px solid #57606f;
-            color: white; border-radius: 5px; margin-top: 5px;
+
+        /* Linke Seite (Sidebar / Login) */
+        .sidebar {
+            width: 250px;
         }
-        .close-btn { float: right; cursor: pointer; font-size: 1.5rem; }
-        .switch-mode { margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); cursor: pointer; text-decoration: underline; }
-        .error-msg { color: #ff4757; font-size: 0.8rem; margin-bottom: 10px; display: none; }
+
+        .login-box {
+            background: white;
+            padding: 15px;
+            border: 1px solid #b8b8b8;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        .login-box h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 16px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .btn-green {
+            background: linear-gradient(to bottom, #00b800, #009900);
+            border: 1px solid #006600;
+            color: white;
+            padding: 8px 0;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-bottom: 5px;
+        }
+
+        .btn-blue {
+            background: linear-gradient(to bottom, #00a2ff, #0074bd);
+            border: 1px solid #004b7a;
+            color: white;
+            padding: 8px 0;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .user-panel {
+            display: none; /* Versteckt wenn nicht eingeloggt */
+            background: white;
+            padding: 15px;
+            border: 1px solid #b8b8b8;
+            text-align: center;
+        }
+
+        .avatar-circle {
+            width: 100px;
+            height: 100px;
+            background-color: #eee;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            line-height: 100px;
+            color: #aaa;
+            font-size: 40px;
+        }
+
+        /* Rechte Seite (Games) */
+        .main-content {
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .game-card {
+            background: white;
+            border: 1px solid #b8b8b8;
+            border-radius: 3px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .game-thumb {
+            width: 100%;
+            height: 120px;
+            background-color: #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .game-info {
+            padding: 8px;
+        }
+
+        .game-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .game-stats {
+            font-size: 11px;
+            color: #666;
+        }
+
+        /* Banner oben */
+        .alert-banner {
+            background-color: #f6b93b;
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            border-bottom: 1px solid #e58e26;
+        }
 
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">LospBlox</div>
+    <header>
+        <a href="#" class="logo">LospBlox</a>
         <div class="nav-links">
             <a href="#">Games</a>
-            <a href="#">Katalog</a>
+            <a href="#">Catalog</a>
+            <a href="#">Develop</a>
             <a href="#">Forum</a>
-            
-            <div class="auth-buttons" id="auth-logged-out">
-                <a onclick="openModal('login')" class="btn-login">Login</a>
-                <a onclick="openModal('register')" class="btn-register">Registrieren</a>
-            </div>
-
-            <div class="user-info" id="auth-logged-in">
-                <span id="username-display">Spieler</span>
-                <span style="color: #2ed573; font-size: 0.9rem;">● Online</span>
-                <button onclick="logoutUser()" class="btn-logout">Logout</button>
-            </div>
         </div>
-    </nav>
+    </header>
 
-    <section class="hero">
-        <h1 id="hero-title">Willkommen bei LospBlox</h1>
-        <p>Erlebe die goldene Ära neu. Tritt heute bei und baue deine eigene Welt.</p>
-        <button class="cta-button" onclick="downloadClient()">Client Herunterladen</button>
-    </section>
+    <div class="alert-banner">
+        Willkommen bei LospBlox! Dies ist eine 2016-Revival Simulation.
+    </div>
 
-    <div class="modal" id="authModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 id="modal-title">Anmelden</h2>
-            <br>
-            <p class="error-msg" id="error-message"></p>
+    <div class="container">
+        
+        <div class="sidebar">
             
-            <div class="input-group">
-                <label>Benutzername</label>
-                <input type="text" id="username" placeholder="DeinName123">
-            </div>
-            
-            <div class="input-group">
-                <label>Passwort</label>
-                <input type="password" id="password" placeholder="******">
+            <div id="login-section" class="login-box">
+                <h3>Member Login</h3>
+                <input type="text" id="username" class="input-field" placeholder="Username">
+                <input type="password" id="password" class="input-field" placeholder="Password">
+                <button class="btn-green" onclick="handleLogin()">Login</button>
+                <div style="margin: 10px 0; font-size: 12px;">or</div>
+                <button class="btn-blue" onclick="handleRegister()">Sign Up</button>
+                <p id="error-msg" style="color: red; font-size: 12px; margin-top: 5px;"></p>
             </div>
 
-            <button class="cta-button" style="width: 100%; font-size: 1rem;" id="auth-action-btn" onclick="handleAuth()">Einloggen</button>
+            <div id="user-section" class="user-panel">
+                <div class="avatar-circle">?</div>
+                <h3 id="display-name" style="margin-bottom: 5px;">Gast</h3>
+                <p style="color: green; font-size: 12px;">● Online</p>
+                <br>
+                <button class="btn-blue" onclick="downloadClient()">Download Client</button>
+                <br><br>
+                <button onclick="logout()" style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline;">Logout</button>
+            </div>
+
+        </div>
+
+        <div class="main-content">
+            <div class="section-title">Popular Games</div>
             
-            <p class="switch-mode" id="switch-text" onclick="toggleAuthMode()">Noch keinen Account? Registrieren</p>
+            <div class="games-grid">
+                <div class="game-card" onclick="playGame('Crossroads')">
+                    <div class="game-thumb" style="background-color: #ff6b6b;">⚔️</div>
+                    <div class="game-info">
+                        <span class="game-title">Crossroads</span>
+                        <div class="game-stats">128 Playing</div>
+                    </div>
+                </div>
+
+                <div class="game-card" onclick="playGame('Sword Fight')">
+                    <div class="game-thumb" style="background-color: #48dbfb;">🏔️</div>
+                    <div class="game-info">
+                        <span class="game-title">Sword Heights</span>
+                        <div class="game-stats">45 Playing</div>
+                    </div>
+                </div>
+
+                <div class="game-card" onclick="playGame('Tycoon')">
+                    <div class="game-thumb" style="background-color: #1dd1a1;">💰</div>
+                    <div class="game-info">
+                        <span class="game-title">Pizza Tycoon</span>
+                        <div class="game-stats">890 Playing</div>
+                    </div>
+                </div>
+                
+                <div class="game-card" onclick="playGame('Natural Disaster')">
+                    <div class="game-thumb" style="background-color: #ff9f43;">🌪️</div>
+                    <div class="game-info">
+                        <span class="game-title">Disaster Survival</span>
+                        <div class="game-stats">230 Playing</div>
+                    </div>
+                </div>
+
+                <div class="game-card" onclick="playGame('Work at Pizza')">
+                    <div class="game-thumb" style="background-color: #5f27cd;">🍕</div>
+                    <div class="game-info">
+                        <span class="game-title">Work at a Place</span>
+                        <div class="game-stats">1.2k Playing</div>
+                    </div>
+                </div>
+
+                 <div class="game-card" onclick="playGame('Baseplate')">
+                    <div class="game-thumb" style="background-color: #576574;">🏗️</div>
+                    <div class="game-info">
+                        <span class="game-title">Classic Baseplate</span>
+                        <div class="game-stats">12 Playing</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Globale Variablen
-        let isLoginMode = true;
-        
-        // --- FUNKTIONEN START ---
-
-        // Prüfen ob Benutzer schon eingeloggt ist (beim Laden der Seite)
+        // Beim Starten checken, ob wer eingeloggt ist
         window.onload = function() {
-            const loggedUser = localStorage.getItem("lospblox_current_user");
-            if (loggedUser) {
-                showLoggedIn(loggedUser);
+            const currentUser = localStorage.getItem("lospblox_user");
+            if (currentUser) {
+                showUserPanel(currentUser);
             }
         };
 
-        function openModal(mode) {
-            const modal = document.getElementById('authModal');
-            modal.style.display = 'flex';
-            
-            if(mode === 'register') {
-                isLoginMode = false;
-            } else {
-                isLoginMode = true;
-            }
-            updateModalUI();
-        }
-
-        function closeModal() {
-            document.getElementById('authModal').style.display = 'none';
-            document.getElementById('error-message').style.display = 'none';
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-        }
-
-        function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
-            updateModalUI();
-        }
-
-        function updateModalUI() {
-            const title = document.getElementById('modal-title');
-            const btn = document.getElementById('auth-action-btn');
-            const switchText = document.getElementById('switch-text');
-
-            if (isLoginMode) {
-                title.innerText = "Anmelden";
-                btn.innerText = "Einloggen";
-                switchText.innerText = "Noch keinen Account? Registrieren";
-            } else {
-                title.innerText = "Registrieren";
-                btn.innerText = "Account erstellen";
-                switchText.innerText = "Bereits einen Account? Einloggen";
-            }
-        }
-
-        function handleAuth() {
+        function handleLogin() {
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
-            const errorMsg = document.getElementById('error-message');
+            const error = document.getElementById('error-msg');
 
-            if(!user || !pass) {
-                errorMsg.innerText = "Bitte fülle alle Felder aus.";
-                errorMsg.style.display = 'block';
+            // Einfacher Check (Simuliert)
+            const savedPass = localStorage.getItem("pass_" + user);
+
+            if (savedPass && savedPass === pass) {
+                localStorage.setItem("lospblox_user", user);
+                showUserPanel(user);
+            } else {
+                error.innerText = "Falsches Passwort oder User existiert nicht!";
+            }
+        }
+
+        function handleRegister() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const error = document.getElementById('error-msg');
+
+            if (!user || !pass) {
+                error.innerText = "Bitte alles ausfüllen!";
                 return;
             }
 
-            if (isLoginMode) {
-                // --- LOGIN VERSUCH ---
-                const savedPass = localStorage.getItem("user_" + user);
-                
-                if (savedPass && savedPass === pass) {
-                    // Erfolg!
-                    localStorage.setItem("lospblox_current_user", user);
-                    showLoggedIn(user);
-                    closeModal();
-                } else {
-                    // Fehler
-                    errorMsg.innerText = "Benutzername oder Passwort falsch!";
-                    errorMsg.style.display = 'block';
-                }
-
+            if (localStorage.getItem("pass_" + user)) {
+                error.innerText = "Name schon vergeben!";
             } else {
-                // --- REGISTRIERUNG ---
-                const existingUser = localStorage.getItem("user_" + user);
-                
-                if (existingUser) {
-                    errorMsg.innerText = "Dieser Benutzername ist schon vergeben!";
-                    errorMsg.style.display = 'block';
-                } else {
-                    // Speichern (Simulierte Datenbank)
-                    localStorage.setItem("user_" + user, pass);
-                    // Automatisch einloggen
-                    localStorage.setItem("lospblox_current_user", user);
-                    
-                    alert("Account erstellt! Willkommen, " + user);
-                    showLoggedIn(user);
-                    closeModal();
-                }
+                localStorage.setItem("pass_" + user, pass);
+                localStorage.setItem("lospblox_user", user);
+                alert("Account erstellt!");
+                showUserPanel(user);
             }
         }
 
-        function showLoggedIn(username) {
-            document.getElementById('auth-logged-out').style.display = 'none';
-            document.getElementById('auth-logged-in').style.display = 'flex';
-            document.getElementById('username-display').innerText = username;
-            document.getElementById('hero-title').innerText = "Willkommen zurück, " + username + "!";
+        function showUserPanel(username) {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('user-section').style.display = 'block';
+            document.getElementById('display-name').innerText = username;
         }
 
-        function logoutUser() {
-            localStorage.removeItem("lospblox_current_user");
-            location.reload(); // Seite neu laden
+        function logout() {
+            localStorage.removeItem("lospblox_user");
+            location.reload();
         }
 
         function downloadClient() {
-            const loggedUser = localStorage.getItem("lospblox_current_user");
-            if(loggedUser) {
-                alert("Download gestartet für " + loggedUser + " (Demo)");
-            } else {
-                alert("Bitte logge dich erst ein!");
-                openModal('login');
-            }
+            alert("Der LospBlox 2016 Client wird heruntergeladen... (Fake)");
         }
 
-        // Modal schließen bei Klick daneben
-        window.onclick = function(event) {
-            const modal = document.getElementById('authModal');
-            if (event.target == modal) {
-                closeModal();
+        function playGame(gameName) {
+            const user = localStorage.getItem("lospblox_user");
+            if (user) {
+                alert("Starte " + gameName + " für Spieler " + user + "...");
+                // Hier würde später der URI-Launcher hinkommen
+            } else {
+                alert("Du musst dich erst einloggen!");
             }
         }
     </script>

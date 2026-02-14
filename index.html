@@ -3,217 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lospashRev.com - Home</title>
+    <title>LospBlox - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- DESIGN: Minimalist "Readme" Style --- */
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            padding: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: white;
-            color: #333;
+        /* --- ROBLOX 2022 DARK THEME --- */
+        :root {
+            --bg-body: #191b1d; /* Dunkler Hintergrund */
+            --bg-sidebar: #232527; /* Etwas helleres Grau */
+            --bg-card: #232527;
+            --text-main: #ffffff;
+            --text-sub: #b8b8b8;
+            --accent: #ffffff;
+            --btn-primary: #ffffff;
+            --btn-text: #191b1d;
         }
 
-        /* Navigation als einfache Text-Links */
-        nav {
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Gotham', 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
-        nav a {
-            color: #0000EE; /* Standard Internet-Blau */
+
+        /* --- TOP NAVIGATION BAR --- */
+        .topbar {
+            background-color: #232527;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            border-bottom: 1px solid #393b3d;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
             text-decoration: none;
             margin-right: 20px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        nav a:hover { text-decoration: underline; }
-
-        /* Der Titel wie im Screenshot */
-        h1 {
-            color: #0969da;
-            font-size: 28px;
-            margin-bottom: 5px;
-            border-bottom: 1px solid #eee;
         }
 
-        h2 { font-size: 18px; color: #333; font-weight: normal; margin-top: 5px; }
-        
-        /* Links im Text */
-        p a { color: #0969da; text-decoration: none; }
-        p a:hover { text-decoration: underline; }
-
-        /* --- LOGIN BEREICH (Simpel) --- */
-        .auth-box {
-            background-color: #f6f8fa;
-            border: 1px solid #d0d7de;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 4px;
-        }
-        input {
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-        button {
-            background-color: #2da44e; /* GitHub Grün */
+        .search-bar {
+            background-color: #191b1d;
+            border: 1px solid #393b3d;
+            padding: 8px 15px;
+            border-radius: 5px;
             color: white;
-            border: 1px solid rgba(27,31,35,0.15);
-            padding: 6px 12px;
-            cursor: pointer;
-            border-radius: 4px;
+            width: 300px;
+            display: none; /* Auf Handy verstecken */
+        }
+        @media(min-width: 768px) { .search-bar { display: block; } }
+
+        .top-right {
+            margin-left: auto;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .robux-counter {
+            background: #393b3d;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
             font-weight: bold;
         }
 
-        /* --- USER DASHBOARD (Wenn eingeloggt) --- */
-        .user-dashboard {
-            display: none; /* Versteckt am Anfang */
-            margin-top: 20px;
-            border: 1px solid #eee;
-            padding: 15px;
-            background: #fafafa;
+        /* --- LAYOUT: SIDEBAR + CONTENT --- */
+        .main-layout {
+            display: flex;
+            margin-top: 50px; /* Platz für Topbar */
+            height: calc(100vh - 50px);
         }
-        .avatar-img {
-            width: 120px;
-            height: 120px;
-            border: 1px solid #ccc;
-            background: white;
-            padding: 5px;
-            float: left;
+
+        /* SIDEBAR (LINKS) */
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-sidebar);
+            padding: 20px 10px;
+            display: none; /* Mobil versteckt */
+            flex-direction: column;
+            gap: 5px;
+            border-right: 1px solid #393b3d;
+        }
+        @media(min-width: 900px) { .sidebar { display: flex; } }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        .nav-item:hover { background-color: #393b3d; }
+        .nav-item i { width: 30px; font-size: 18px; }
+
+        /* CONTENT (RECHTS) */
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* --- LOGIN SCREEN (2022 STYLE) --- */
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #232527;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            background-color: #191b1d;
+            border: 1px solid #393b3d;
+            border-radius: 5px;
+            color: white;
+            box-sizing: border-box; /* Wichtig für Padding */
+        }
+        .input-group input:focus { border-color: white; outline: none; }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .btn-primary:hover { background-color: #e0e0e0; }
+
+        /* --- HOME DASHBOARD (WENN EINGELOGGT) --- */
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #393b3d;
             margin-right: 20px;
         }
-        
-        /* --- GAMES LISTE (Wieder da!) --- */
-        .games-section {
-            margin-top: 40px;
+
+        h2 { margin: 0; font-size: 32px; }
+        .status-text { color: #b8b8b8; font-size: 14px; margin-top: 5px; }
+
+        /* GAMES GRID */
+        .games-title { font-size: 24px; font-weight: bold; margin-bottom: 15px; }
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
         }
-        .game-grid {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .game-item {
-            border: 1px solid #ddd;
-            width: 150px;
-            padding: 10px;
-            text-align: center;
+
+        .game-card {
+            background-color: transparent;
             cursor: pointer;
+            transition: transform 0.2s;
         }
-        .game-item:hover { background-color: #f0f0f0; }
+        .game-card:hover { transform: translateY(-5px); }
+        
         .game-thumb {
-            width: 100%; height: 100px; background: #ddd; margin-bottom: 5px;
-            display: flex; align-items: center; justify-content: center; font-size: 24px;
+            width: 100%;
+            aspect-ratio: 1/1;
+            background-color: #393b3d;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            overflow: hidden;
         }
+        .game-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        .game-name { font-weight: bold; font-size: 16px; margin-bottom: 2px; }
+        .game-stats { color: #b8b8b8; font-size: 12px; }
 
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" style="color: black; margin-right: 30px;">lospashRev</a>
-        <a href="#">Games</a>
-        <a href="#">Catalog</a>
-        <a href="#">Forum</a>
-        <a href="#">Develop</a>
-    </nav>
-
-    <h1>lospashRev.com</h1>
-    <h2>an roblox revival where you can imagine your fantasy!</h2>
-    <p>
-        you can play the 2016 to 2022 build less more rules than other revival and more! <br>
-        you can play our revival via <a href="#">lospashRev.com</a> or just join our server via Discord.
-    </p>
-
-    <div id="login-area" class="auth-box">
-        <strong>Login to play:</strong><br><br>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="handleLogin()">Login / Register</button>
-        <p id="error-msg" style="color: red; font-size: 12px;"></p>
-    </div>
-
-    <div id="dashboard" class="user-dashboard">
-        <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-893047294F250C332204B1963073D352-Png/150/150/AvatarHeadshot/Png/noFilter" class="avatar-img" alt="Avatar">
+    <div class="topbar">
+        <div style="display:flex; align-items:center;">
+            <i class="fas fa-bars" style="font-size: 20px; margin-right: 20px; cursor: pointer; color:white;"></i>
+            <a href="#" class="logo">LospBlox</a>
+        </div>
+        <input type="text" class="search-bar" placeholder="Suchen...">
         
-        <h2 style="margin-top:0;">Welcome, <span id="user-display">User</span>!</h2>
-        <p style="color: green;">● Online on Website</p>
-        <button onclick="downloadClient()">Download Client (2016)</button>
-        <button onclick="logout()" style="background-color: #d73a49;">Logout</button>
-        <div style="clear:both;"></div>
+        <div class="top-right">
+            <div id="auth-buttons-top">
+                <button onclick="logout()" style="background:none; border:1px solid white; color:white; padding:5px 10px; border-radius:5px; cursor:pointer; display:none;" id="btn-logout-top">Logout</button>
+            </div>
+            <div class="robux-counter">
+                <i class="fas fa-hexagon"></i> 0 LB$
+            </div>
+            <i class="fas fa-bell" style="font-size:20px;"></i>
+            <i class="fas fa-cog" style="font-size:20px;"></i>
+        </div>
     </div>
 
-    <div class="games-section">
-        <h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">Popular Games</h3>
-        <div class="game-grid">
-            
-            <div class="game-item" onclick="playGame('Crossroads')">
-                <div class="game-thumb">⚔️</div>
-                <strong>Crossroads</strong><br>
-                <small>120 Playing</small>
+    <div class="main-layout">
+        
+        <div class="sidebar">
+            <a href="#" class="nav-item"><i class="fas fa-home"></i> Home</a>
+            <a href="#" class="nav-item"><i class="fas fa-user-circle"></i> Profile</a>
+            <a href="#" class="nav-item"><i class="fas fa-comment-dots"></i> Messages</a>
+            <a href="#" class="nav-item"><i class="fas fa-user-friends"></i> Friends</a>
+            <a href="#" class="nav-item"><i class="fas fa-tshirt"></i> Avatar</a>
+            <a href="#" class="nav-item"><i class="fas fa-box-open"></i> Inventory</a>
+            <a href="#" class="nav-item"><i class="fas fa-exchange-alt"></i> Trade</a>
+            <a href="#" class="nav-item"><i class="fas fa-users"></i> Groups</a>
+            <a href="#" class="nav-item"><i class="fas fa-newspaper"></i> Blog</a>
+        </div>
+
+        <div class="content">
+
+            <div id="login-view" class="auth-container">
+                <h2 style="margin-bottom: 20px;">Login to LospBlox</h2>
+                
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Username / Email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                
+                <button class="btn-primary" onclick="handleLogin()">Log In</button>
+                <button class="btn-primary" onclick="handleRegister()" style="background-color: transparent; color: white; border: 1px solid white; margin-top: 10px;">Sign Up</button>
+                
+                <p id="error-msg" style="color: #ff4757; margin-top: 10px; font-size: 14px;"></p>
             </div>
 
-            <div class="game-item" onclick="playGame('Tycoon')">
-                <div class="game-thumb">🏗️</div>
-                <strong>Pizza Tycoon</strong><br>
-                <small>450 Playing</small>
-            </div>
+            <div id="dashboard-view" style="display:none;">
+                
+                <div class="dashboard-header">
+                    <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-893047294F250C332204B1963073D352-Png/150/150/AvatarHeadshot/Png/noFilter" class="avatar-circle" alt="Avatar">
+                    <div>
+                        <h2 id="welcome-msg">Home</h2>
+                        <div class="status-text" id="username-display">User</div>
+                    </div>
+                </div>
 
-            <div class="game-item" onclick="playGame('Natural Disaster')">
-                <div class="game-thumb">🌪️</div>
-                <strong>Survival</strong><br>
-                <small>89 Playing</small>
-            </div>
+                <div class="games-title">Continue Playing</div>
+                
+                <div class="games-grid">
+                    <div class="game-card" onclick="alert('Starting Game...')">
+                        <div class="game-thumb" style="background:#ff6b6b;">⚔️</div>
+                        <div class="game-name">Crossroads</div>
+                        <div class="game-stats">92% Like • 1.2k Playing</div>
+                    </div>
 
-            <div class="game-item" onclick="playGame('Sword Fight')">
-                <div class="game-thumb">🏔️</div>
-                <strong>Sword Heights</strong><br>
-                <small>32 Playing</small>
-            </div>
+                     <div class="game-card">
+                        <div class="game-thumb" style="background:#1dd1a1;">🍕</div>
+                        <div class="game-name">Pizza Place</div>
+                        <div class="game-stats">88% Like • 4k Playing</div>
+                    </div>
 
+                     <div class="game-card">
+                        <div class="game-thumb" style="background:#54a0ff;">🌊</div>
+                        <div class="game-name">Natural Disaster</div>
+                        <div class="game-stats">95% Like • 2.5k Playing</div>
+                    </div>
+
+                     <div class="game-card">
+                        <div class="game-thumb" style="background:#feca57;"> jail </div>
+                        <div class="game-name">Jailbreak Rev</div>
+                        <div class="game-stats">91% Like • 8k Playing</div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-thumb" style="background:#5f27cd;">🔫</div>
+                        <div class="game-name">Arsenal</div>
+                        <div class="game-stats">85% Like • 1k Playing</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button class="btn-primary" style="width: auto; padding: 10px 30px;" onclick="downloadClient()">Download LospBlox Player</button>
+                </div>
+
+            </div>
         </div>
     </div>
 
     <script>
         // Check beim Laden
         window.onload = function() {
-            const u = localStorage.getItem("losp_user");
-            if(u) showDash(u);
-        }
+            const user = localStorage.getItem("losp22_user");
+            if(user) {
+                showDashboard(user);
+            } else {
+                showLogin();
+            }
+        };
 
         function handleLogin() {
             const user = document.getElementById("username").value;
             const pass = document.getElementById("password").value;
-            if(!user || !pass) return;
+            const error = document.getElementById("error-msg");
 
-            // Simulierter Login (Speichert User im Browser)
-            localStorage.setItem("losp_user", user);
-            showDash(user);
+            if(!user || !pass) {
+                error.innerText = "Please fill in all fields";
+                return;
+            }
+
+            // Simulierter Login
+            // Hier würde normalerweise eine API Anfrage stehen
+            localStorage.setItem("losp22_user", user);
+            showDashboard(user);
         }
 
-        function showDash(user) {
-            document.getElementById("login-area").style.display = "none";
-            document.getElementById("dashboard").style.display = "block";
-            document.getElementById("user-display").innerText = user;
+        function handleRegister() {
+            // Für Demo gleich wie Login
+            handleLogin();
+        }
+
+        function showDashboard(username) {
+            document.getElementById("login-view").style.display = "none";
+            document.getElementById("dashboard-view").style.display = "block";
+            
+            document.getElementById("welcome-msg").innerText = "Welcome, " + username;
+            document.getElementById("username-display").innerText = "@" + username;
+            document.getElementById("btn-logout-top").style.display = "block";
+        }
+
+        function showLogin() {
+            document.getElementById("login-view").style.display = "block";
+            document.getElementById("dashboard-view").style.display = "none";
+            document.getElementById("btn-logout-top").style.display = "none";
         }
 
         function logout() {
-            localStorage.removeItem("losp_user");
+            localStorage.removeItem("losp22_user");
             location.reload();
         }
 
         function downloadClient() {
-            alert("Client Download startet...");
-        }
-
-        function playGame(game) {
-            const u = localStorage.getItem("losp_user");
-            if(u) alert("Starte " + game + "...");
-            else alert("Bitte erst einloggen!");
+            alert("LospBlox Installer downloading...");
         }
     </script>
-
 </body>
 </html>

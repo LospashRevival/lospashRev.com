@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LospBlox - Rewrite History</title>
     <style>
-        /* --- CSS STYLING (Unverändert modern) --- */
+        /* --- CSS STYLING --- */
         :root {
             --primary: #ff4757;
             --bg-dark: #1e272e;
@@ -34,7 +34,7 @@
         .user-info { display: none; align-items: center; gap: 10px; }
         .btn-login { border: 2px solid var(--primary); padding: 8px 20px; border-radius: 5px; }
         .btn-register { background-color: var(--primary); border: 2px solid var(--primary); padding: 8px 20px; border-radius: 5px; margin-left: 10px; }
-        .btn-logout { border: 1px solid #57606f; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; }
+        .btn-logout { border: 1px solid #57606f; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; cursor: pointer; background: none; color: white;}
 
         /* Hero */
         .hero {
@@ -103,8 +103,8 @@
             <p class="error-msg" id="error-message"></p>
             
             <div class="input-group">
-                <label>E-Mail Adresse</label>
-                <input type="email" id="email" placeholder="name@beispiel.de">
+                <label>Benutzername</label>
+                <input type="text" id="username" placeholder="DeinName123">
             </div>
             
             <div class="input-group">
@@ -118,53 +118,41 @@
         </div>
     </div>
 
-    <script type="module">
-        // Importiere Firebase Module
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    <script>
+        // Globale Variablen
+        let isLoginMode = true;
+        
+        // --- FUNKTIONEN START ---
 
-        // --- KONFIGURATION START ---
-        // 1. Gehe in deine Firebase Console
-        // 2. Kopiere den "firebaseConfig"-Block
-        // 3. Ersetze den Block hier unten:
-
-        const firebaseConfig = {
-            // FÜGE HIER DEINEN FIREBASE CONFIG CODE EIN!
-            // Beispiel:
-            // apiKey: "AIzaSyD...",
-            // authDomain: "lospblox.firebaseapp.com",
-            // projectId: "lospblox",
-            // ...
+        // Prüfen ob Benutzer schon eingeloggt ist (beim Laden der Seite)
+        window.onload = function() {
+            const loggedUser = localStorage.getItem("lospblox_current_user");
+            if (loggedUser) {
+                showLoggedIn(loggedUser);
+            }
         };
 
-        // --- KONFIGURATION ENDE ---
-
-        // Firebase starten
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Globale Variablen für UI
-        window.isLoginMode = true;
-
-        // Modal Steuerung
-        window.openModal = function(mode) {
+        function openModal(mode) {
             const modal = document.getElementById('authModal');
             modal.style.display = 'flex';
+            
             if(mode === 'register') {
-                window.isLoginMode = false;
+                isLoginMode = false;
             } else {
-                window.isLoginMode = true;
+                isLoginMode = true;
             }
             updateModalUI();
         }
 
-        window.closeModal = function() {
+        function closeModal() {
             document.getElementById('authModal').style.display = 'none';
             document.getElementById('error-message').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
         }
 
-        window.toggleAuthMode = function() {
-            window.isLoginMode = !window.isLoginMode;
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
             updateModalUI();
         }
 
@@ -173,7 +161,7 @@
             const btn = document.getElementById('auth-action-btn');
             const switchText = document.getElementById('switch-text');
 
-            if (window.isLoginMode) {
+            if (isLoginMode) {
                 title.innerText = "Anmelden";
                 btn.innerText = "Einloggen";
                 switchText.innerText = "Noch keinen Account? Registrieren";
@@ -184,80 +172,71 @@
             }
         }
 
-        // Auth Logic (Login / Register)
-        window.handleAuth = function() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        function handleAuth() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
             const errorMsg = document.getElementById('error-message');
 
-            if(!email || !password) {
+            if(!user || !pass) {
                 errorMsg.innerText = "Bitte fülle alle Felder aus.";
                 errorMsg.style.display = 'block';
                 return;
             }
 
-            if (window.isLoginMode) {
-                // LOGIN
-                signInWithEmailAndPassword(auth, email, password)
-                    .then((userCredential) => {
-                        window.closeModal();
-                        console.log("Eingeloggt:", userCredential.user);
-                    })
-                    .catch((error) => {
-                        errorMsg.innerText = "Fehler: " + error.message;
-                        errorMsg.style.display = 'block';
-                    });
+            if (isLoginMode) {
+                // --- LOGIN VERSUCH ---
+                const savedPass = localStorage.getItem("user_" + user);
+                
+                if (savedPass && savedPass === pass) {
+                    // Erfolg!
+                    localStorage.setItem("lospblox_current_user", user);
+                    showLoggedIn(user);
+                    closeModal();
+                } else {
+                    // Fehler
+                    errorMsg.innerText = "Benutzername oder Passwort falsch!";
+                    errorMsg.style.display = 'block';
+                }
+
             } else {
-                // REGISTER
-                createUserWithEmailAndPassword(auth, email, password)
-                    .then((userCredential) => {
-                        window.closeModal();
-                        alert("Account erfolgreich erstellt! Du bist jetzt eingeloggt.");
-                    })
-                    .catch((error) => {
-                        errorMsg.innerText = "Fehler: " + error.message;
-                        errorMsg.style.display = 'block';
-                    });
+                // --- REGISTRIERUNG ---
+                const existingUser = localStorage.getItem("user_" + user);
+                
+                if (existingUser) {
+                    errorMsg.innerText = "Dieser Benutzername ist schon vergeben!";
+                    errorMsg.style.display = 'block';
+                } else {
+                    // Speichern (Simulierte Datenbank)
+                    localStorage.setItem("user_" + user, pass);
+                    // Automatisch einloggen
+                    localStorage.setItem("lospblox_current_user", user);
+                    
+                    alert("Account erstellt! Willkommen, " + user);
+                    showLoggedIn(user);
+                    closeModal();
+                }
             }
         }
 
-        // Logout
-        window.logoutUser = function() {
-            signOut(auth).then(() => {
-                alert("Erfolgreich ausgeloggt.");
-            });
+        function showLoggedIn(username) {
+            document.getElementById('auth-logged-out').style.display = 'none';
+            document.getElementById('auth-logged-in').style.display = 'flex';
+            document.getElementById('username-display').innerText = username;
+            document.getElementById('hero-title').innerText = "Willkommen zurück, " + username + "!";
         }
 
-        // Benutzerstatus überwachen (Checkt ob eingeloggt oder nicht)
-        onAuthStateChanged(auth, (user) => {
-            const loggedOutDiv = document.getElementById('auth-logged-out');
-            const loggedInDiv = document.getElementById('auth-logged-in');
-            const userDisplay = document.getElementById('username-display');
-            const heroTitle = document.getElementById('hero-title');
+        function logoutUser() {
+            localStorage.removeItem("lospblox_current_user");
+            location.reload(); // Seite neu laden
+        }
 
-            if (user) {
-                // User ist eingeloggt
-                loggedOutDiv.style.display = 'none';
-                loggedInDiv.style.display = 'flex';
-                // Da wir nur Email haben, nehmen wir den Teil vor dem @ als Namen
-                const name = user.email.split('@')[0];
-                userDisplay.innerText = name;
-                heroTitle.innerText = "Willkommen zurück, " + name + "!";
+        function downloadClient() {
+            const loggedUser = localStorage.getItem("lospblox_current_user");
+            if(loggedUser) {
+                alert("Download gestartet für " + loggedUser + " (Demo)");
             } else {
-                // User ist ausgeloggt
-                loggedOutDiv.style.display = 'flex';
-                loggedInDiv.style.display = 'none';
-                heroTitle.innerText = "Willkommen bei LospBlox";
-            }
-        });
-
-        window.downloadClient = function() {
-            const user = auth.currentUser;
-            if(user) {
-                alert("Download startet... (Fake - Hier würde die .exe kommen)");
-            } else {
-                alert("Du musst eingeloggt sein, um den Client herunterzuladen!");
-                window.openModal('login');
+                alert("Bitte logge dich erst ein!");
+                openModal('login');
             }
         }
 
@@ -265,7 +244,7 @@
         window.onclick = function(event) {
             const modal = document.getElementById('authModal');
             if (event.target == modal) {
-                window.closeModal();
+                closeModal();
             }
         }
     </script>
